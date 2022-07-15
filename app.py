@@ -14,6 +14,7 @@ def create_app(test_config=None):
     @app.route('/', methods=['GET'])
     def home():
         return jsonify({'message': 'Welcome to the API-TASKS'})
+
     @app.route("/tasks")
     def get_tasks():
         try:
@@ -28,6 +29,16 @@ def create_app(test_config=None):
             ), 200
         except:
             abort(500)
+
+    @app.route("/tasks", methods=['POST'])
+    def create_task():
+        try:
+            data = request.get_json()
+            task = Task(data['body'])
+            task.insert()
+        except:
+            abort(500)
+
     @app.errorhandler(500)
     def server_error(error):
         return jsonify({
@@ -35,6 +46,7 @@ def create_app(test_config=None):
             "error": 500,
             "message": "server error"
         }), 500
+
     return app
 
 app = create_app()

@@ -9,8 +9,7 @@ setup_db(app):
     binds a flask application and a SQLAlchemy service
 '''
 def setup_db(app):
-    db_name = 'tasks_db'
-    default_db_path = "postgres://{}:{}@{}/{}".format('postgres', 'password', 'localhost:5432', db_name)
+    default_db_path = "postgres://{}:{}@{}/{}".format('user', 'password', 'localhost:5432', 'db_name')
     database_path = os.getenv('DATABASE_URL', default_db_path)
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -30,9 +29,9 @@ class Task(db.Model):
     id = Column(Integer, primary_key=True)
     body = Column(String(500))
     created = Column(db.DateTime)
-    def __init__(self, body, created):
+    def __init__(self, body):
         self.body = body
-        self.created = created
+        self.created = db.DateTime()
     def details(self):
         return {
             'id': self.id,
