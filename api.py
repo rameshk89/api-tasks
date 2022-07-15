@@ -18,4 +18,11 @@ def create_task():
     tasks.append(data)
     return jsonify({'result': 'success'})
 
-app.run()
+@app.route('/')
+def index():
+    # A welcome message to test our server
+    return "<h1>Welcome!</h1>"
+
+if __name__ == '__main__':
+    # Threaded option to enable multiple instances for multiple user access support
+    app.run(threaded=True, port=5000)
