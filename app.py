@@ -12,7 +12,7 @@ def create_app(test_config=None):
     db_drop_and_create_all()
     @app.route('/', methods=['GET'])
     def home():
-        return jsonify({'message': 'Hello,hello, World!'})
+        return jsonify({'message': 'Welcome to the API-TASKS'})
     @app.route("/tasks")
     def get_tasks():
         try:

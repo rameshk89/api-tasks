@@ -11,7 +11,7 @@ setup_db(app):
 def setup_db(app):
     db_name = 'tasks_db'
     default_db_path = "postgres://{}:{}@{}/{}".format('postgres', 'password', 'localhost:5432', db_name)
-    database_path = os.getenv('DATABASE_URL', default_database_path)
+    database_path = os.getenv('DATABASE_URL', default_db_path)
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
