@@ -6,7 +6,7 @@ This file creates your application.
 """
 
 from app import app, db
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from app.forms import UserForm
 from app.models import User
 # import sqlite3
@@ -29,8 +29,8 @@ def about():
 @app.route('/users')
 def show_users():
     users = db.session.query(User).all() # or you could have used User.query.all()
-
-    return render_template('show_users.html', users=users)
+    return jsonify(users)
+    # return render_template('show_users.html', users=users)
 
 @app.route('/add-user', methods=['POST', 'GET'])
 def add_user():
