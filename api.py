@@ -1,16 +1,25 @@
 from flask import Flask, jsonify
-from flask import request
+from flask import request, g
+import sqlite3 as sql
+
+DATABASE = 'tasks_db.db'
 
 app = Flask(__name__);
 
 tasks = []
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sql.connect(DATABASE)
+    return db
 
 @app.route('/tasks', methods=['GET'])
 def get_task():
-    if tasks:
-        return jsonify(tasks)
-    else:
-        return jsonify([{'id': 1, 'body': 'This is dummy body'}])
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("select * from tasks")
+    res = cur.fetchall()
+    return jsonify(res)
 
 @app.route('/tasks', methods=['POST'])
 def create_task():
