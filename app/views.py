@@ -29,7 +29,10 @@ def about():
 @app.route('/users')
 def show_users():
     users = db.session.query(User).all() # or you could have used User.query.all()
-    return jsonify(users)
+    usrs = []
+    for u in users:
+        usrs.append(u.details())
+    return jsonify(usrs)
     # return render_template('show_users.html', users=users)
 
 @app.route('/add-user', methods=['POST', 'GET'])
