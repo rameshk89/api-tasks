@@ -1,14 +1,16 @@
+###
+# Testing Flask app
+###
+
 from flask import Flask
 from flask import jsonify, request
 
-###
-# Routing for your application.
-###
 
 app = Flask(__name__)
 
 users = []
 files = []
+
 
 @app.route('/')
 def home():
@@ -18,10 +20,13 @@ def home():
 
 @app.route('/users')
 def get_users():
+    """ Get users """
     return jsonify(users)
+
 
 @app.route('/users', methods = ['POST'])
 def create_user():
+    """ Create users """
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         json = request.json
@@ -30,9 +35,6 @@ def create_user():
     else:
         return 'Content-Type not supported!'
 
-###
-# The functions below should be applicable to all Flask apps.
-###
 
 @app.route('/<file_name>.jpg')
 def send_image_file(file_name):
@@ -40,7 +42,9 @@ def send_image_file(file_name):
     file_dot_text = file_name + '.txt'
     return app.send_static_file(file_dot_text)
 
-
+###
+# The functions below should be applicable to all Flask apps.
+###
 @app.after_request
 def add_header(response):
     """
@@ -51,9 +55,11 @@ def add_header(response):
     response.headers['Cache-Control'] = 'public, max-age=600'
     return response
 
-
+###
+# The functions below should be applicable to all Flask apps.
+###
 @app.errorhandler(404)
-def page_not_found(error):
+def page_not_found():
     """Custom 404 page."""
     return jsonify("<h1> Not Found </h1>")
 
