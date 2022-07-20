@@ -1,16 +1,17 @@
 ###
 # Testing Flask app
 ###
+import os
+from flask import Flask, request, jsonify
+from flask import flash, redirect
+from analyze import analyze
 
-from flask import Flask
-from flask import jsonify, request
-
-
+UPLOAD_FOLDER = './files/images'
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 users = []
 files = []
-
 
 @app.route('/')
 def home():
@@ -23,6 +24,11 @@ def get_users():
     """ Get users """
     return jsonify(users)
 
+@app.route('/files')
+def get_files():
+    """ Get filles """
+    return jsonify(files)
+
 
 @app.route('/users', methods = ['POST'])
 def create_user():
@@ -32,15 +38,29 @@ def create_user():
         json = request.json
         users.append(json)
         return json
-    else:
-        return 'Content-Type not supported!'
+    return 'Content-Type not supported!'
 
 
-@app.route('/<file_name>.jpg')
-def send_image_file(file_name):
-    """Send your static text file."""
-    file_dot_text = file_name + '.txt'
-    return app.send_static_file(file_dot_text)
+@app.route('/upload', methods = ['POST'])
+def upload_file():
+    """ Uploading image for analysis """
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file:
+            filename = file.filename
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            files.append(filepath)
+            analyze(filepath)
 
 ###
 # The functions below should be applicable to all Flask apps.
