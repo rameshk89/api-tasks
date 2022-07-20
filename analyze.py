@@ -3,7 +3,7 @@ import numpy as np
 
 def analyze(filepath: str):
     # Load the cascade
-    # face_cascade = cv2.CascadeClassifier('resources/haarcascade_frontalface_default.xml')
+    face_cascade = cv2.CascadeClassifier('resources/haarcascade_frontalface_default.xml')
     
     # Read the input image
     img = cv2.imread(filepath)
