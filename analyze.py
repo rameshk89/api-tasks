@@ -20,5 +20,4 @@ def analyze(filepath: str):
         cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
         faces_map.append((x, y, x+w, y+h))
     # Display the output
-    return {"image": daces_}
-  
+    return {"image": faces_map}
