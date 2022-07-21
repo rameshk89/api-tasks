@@ -3,6 +3,7 @@ Mongodb client for python
 """
 from enum import Enum
 from pymongo import MongoClient
+import os
 
 class Table(Enum):
     """  List of collections """
@@ -10,7 +11,7 @@ class Table(Enum):
     posts = "posts"
 
 # Provide the mongodb atlas url to connect python to mongodb using pymongo
-CONN_URL = "mongodb+srv://rickirathi:ricki@cluster0.n8scg.mongodb.net"
+CONN_URL = os.environ['MONGODB_URL'] #"mongodb+srv://rickirathi:ricki@cluster0.n8scg.mongodb.net"
 
 # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
 client = MongoClient(
