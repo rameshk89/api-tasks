@@ -1,6 +1,7 @@
-###
-# Testing Flask app
-###
+"""
+Testing Flask app
+"""
+
 import os
 from flask import Flask, request, jsonify
 from flask import flash, redirect

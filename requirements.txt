@@ -3,3 +3,5 @@ Flask-WTF==1.0.0
 gunicorn==20.1.0
 itsdangerous==2.1.2
 opencv-python-headless==4.6.0.66
+pymongo==4.2.0
+dnspython==2.2.1
