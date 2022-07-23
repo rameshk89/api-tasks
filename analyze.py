@@ -20,4 +20,9 @@ def analyze(filepath: str):
         cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
         faces_map.append((x, y, x+w, y+h))
     # Display the output
-    return {"image": faces_map}
+    return {"faces": faces_map}
+
+# Testing analyze
+path = "resources/family.png"
+result = analyze(path)
+print(result)

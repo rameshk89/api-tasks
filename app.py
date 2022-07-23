@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from flask import flash, redirect
 from analyze import analyze
 
-UPLOAD_FOLDER = './files/images'
+UPLOAD_FOLDER = './cached/'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -28,7 +28,9 @@ def get_users():
 @app.route('/files')
 def get_files():
     """ Get filles """
-    return jsonify(files)
+    path = "resources/family.png"
+    result = analyze(path)
+    return jsonify(result)
 
 
 @app.route('/users', methods = ['POST'])
@@ -61,7 +63,7 @@ def upload_file():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
             files.append(filepath)
-            analyze(filepath)
+            return jsonify(analyze(filepath))
 
 ###
 # The functions below should be applicable to all Flask apps.
