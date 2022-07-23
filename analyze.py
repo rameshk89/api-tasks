@@ -15,12 +15,12 @@ def analyze(filepath: str):
     faces = face_cascade.detectMultiScale(gray, 1.2, 4)
     
     # # Draw rectangle around the faces
-    faces_map = []
-    for (x, y, w, h) in faces:
-        cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
-        faces_map.append((x, y, x+w, y+h))
+    # faces_map = []
+    # for (x, y, w, h) in faces:
+    #     cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+    #     faces_map.append((x, y, x+w, y+h))
     # Display the output
-    return {"faces": faces_map}
+    return {"face_count": len(faces)}
 
 # Testing analyze
 path = "resources/family.png"
