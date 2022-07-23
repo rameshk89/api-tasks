@@ -12,7 +12,7 @@ def analyze(filepath: str):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
     # # Detect faces
-    faces = face_cascade.detectMultiScale(gray, 2, 4)
+    faces = face_cascade.detectMultiScale(gray, 1.2, 4)
     
     # # Draw rectangle around the faces
     faces_map = []

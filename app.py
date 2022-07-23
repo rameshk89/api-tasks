@@ -25,14 +25,6 @@ def get_users():
     """ Get users """
     return jsonify(users)
 
-@app.route('/files')
-def get_files():
-    """ Get filles """
-    path = "resources/family.png"
-    result = analyze(path)
-    return jsonify(result)
-
-
 @app.route('/users', methods = ['POST'])
 def create_user():
     """ Create users """
@@ -43,6 +35,12 @@ def create_user():
         return json
     return 'Content-Type not supported!'
 
+@app.route('/files')
+def get_files():
+    """ Get filles """
+    path = "resources/family.png"
+    result = analyze(path)
+    return jsonify(result)
 
 @app.route('/upload', methods = ['POST'])
 def upload_file():
