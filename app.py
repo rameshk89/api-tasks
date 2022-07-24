@@ -85,4 +85,6 @@ def page_not_found():
     return jsonify("<h1> Not Found </h1>")
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(debug=True,host="0.0.0.0",port="8080")
